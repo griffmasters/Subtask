@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  envName: 'uninitialized',
+  envCanary: 'no environment configuration has been set'
 };
 
 /*

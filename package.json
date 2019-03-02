@@ -20,15 +20,15 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "chart.js": "^2.7.3",
-    "core-js": "^2.6.2",
+    "core-js": "^2.6.3",
     "cors": "^2.8.5",
-    "d3": "^5.7.0",
+    "d3": "^5.8.2",
     "express": "^4.16.4",
     "rxjs": "~6.3.3",
     "sequelize": "^4.42.0",
     "tslib": "^1.9.0",
     "vis": "^4.21.0",
-    "zone.js": "^0.8.27"
+    "zone.js": "^0.8.29"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.11.0",
@@ -36,7 +36,7 @@
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",
     "@types/d3": "^5.7.0",
-    "@types/jasmine": "~2.8.8",
+    "@types/jasmine": "^2.8.16",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^8.10.39",
     "codelyzer": "~4.5.0",

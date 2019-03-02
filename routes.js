@@ -23,8 +23,29 @@ var db = require('./models');
 
         // frontend routes =========================================================
         // route to handle all angular requests
-        app.get('*', function(req, res) {
-            res.sendfile('./src/index.html'); // load our public/index.html file
-        });
+
+    const allowedExt = [
+        '.js',
+        '.ico',
+        '.css',
+        '.png',
+        '.jpg',
+        '.woff2',
+        '.woff',
+        '.ttf',
+        '.svg',
+    ];
+
+
+    app.get('*', function (req, res) {
+        //handle resource requests correctly
+        if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
+            var path = './dist/subtask' + req.url;
+            res.sendfile(path);
+        } else {
+            res.sendfile('./dist/subtask/index.html'); // load our public/index.html file
+        }
+    }
+    );
 
     };
