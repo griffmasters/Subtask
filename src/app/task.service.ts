@@ -4,6 +4,7 @@ import {Task} from './task';
 import {Observable, of, throwError } from 'rxjs';
 import { HttpClient,HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class TaskService {
   constructor(private http: HttpClient) { }
 
   getTasks(): Observable<Task[]> {
-    return this.http.get('http://localhost:3000/api/tasks').pipe(map(this.extractData),catchError(this.handleError));
+    return this.http.get( environment.apiEndpoint+'/api/tasks').pipe(map(this.extractData),catchError(this.handleError));
   }
   extractData(res: Response): any {
     console.log("processing tasks");

@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   envName: 'uninitialized',
-  envCanary: 'no environment configuration has been set'
+  envCanary: 'no environment configuration has been set',
+  apiEndpoint: 'http://localhost:3000' //test endpoint
 };
 
 /*
