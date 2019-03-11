@@ -4,6 +4,7 @@ import { TaskRelationship } from '../task-relationship';
 import { TaskService } from '../task.service';
 import { TaskRelationshipsService } from '../task-relationships.service';
 import * as vis from "vis";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tasks',
@@ -15,11 +16,24 @@ export class TasksComponent implements OnInit {
 
   tasks: Task[];
   relationships: TaskRelationship[];
+  network;
+  networkPhysics: Boolean = false;
 
   constructor(private taskService: TaskService, private taskRelationshipService: TaskRelationshipsService) { }
 
   ngOnInit() {
     this.getTasks();
+  }
+
+  toggleHierarchy(){
+    this.network.setOptions({layout:{hierarchical:true}});
+    this.network.setOptions({layout:{hierarchical:false}});
+    this.networkPhysics = false;
+  }
+
+  togglePhysics(){
+    this.networkPhysics = ! this.networkPhysics
+    this.network.setOptions({physics:{enabled:this.networkPhysics}});
   }
 
   getTasks(): void {
@@ -61,13 +75,36 @@ export class TasksComponent implements OnInit {
             hierarchical:
             {
               direction: 'UD',
-              sortMethod: 'directed'
+              sortMethod: 'directed',
+              levelSeparation: 100
             }
+          },
+          physics:
+          {
+            enabled: false
+          },
+          configure:
+          {
+            enabled: environment.enableGraphConfigPanel
+          },
+          edges:
+          {
+            arrows:
+              { to: true },
+            smooth:
+              { enabled: true, type: 'curvedCW', roundness: 0.2 }
+          },
+          manipulation:
+          {
+            enabled: true
           }
         };
 
         // initialize your network!
-        var network = new vis.Network(container, data, options);
+        this.network = new vis.Network(container, data, options);
+
+        //turn off hierachy view so nodes start in the right place, but are still movable
+        this.network.setOptions({layout:{hierarchical:false}});
       })
 
 
@@ -80,27 +117,22 @@ export class TasksComponent implements OnInit {
     switch (taskRel.relationshipType) {
       case 'owns':
         return {
-          from: taskRel.subjectTask, to: taskRel.objectTask,
-          arrows:
-            { to: true },
-          smooth: {enabled:true, type:'curvedCW', roundness:0.2}
+          from: taskRel.subjectTask, to: taskRel.objectTask
         };
       case 'requires':
         return {
           from: taskRel.subjectTask, to: taskRel.objectTask,
-          arrows:
-            { to: true },
           color:
             { color: '#ff0000' },
-            smooth: {enabled:true, type:'curvedCW', roundness:0.2}
-          };
+        };
       case 'substitutes':
         return {
           from: taskRel.subjectTask, to: taskRel.objectTask,
           color:
             { color: 'black' },
           dashes: true,
-          smooth: {enabled:true, type:'curvedCW', roundness:0.2}
+          arrows:
+            { to: false }
         };
     }
   }

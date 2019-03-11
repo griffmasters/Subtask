@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   envName: 'uninitialized',
   envCanary: 'no environment configuration has been set',
-  apiEndpoint: 'http://localhost:3000' //test endpoint
+  apiEndpoint: 'http://localhost:3000', //test endpoint
+  enableGraphConfigPanel: false
 };
 
 /*

@@ -12,6 +12,10 @@ task component works!<br>
 
 <body>
   <div id="mynetwork"></div>
+  <button type="button" id="toggleHierarchyButton" (click)="toggleHierarchy()">snap-to hierachy</button>
+  Toggle physics
+  <button type="button" id="togglePhysicsButton" (click)="togglePhysics()">Node physics: {{networkPhysics}}</button>
+
   <ul class="tasks">
     <li *ngFor="let task of tasks">
       <span class="badge"> {{task.title}}</span> {{task.description}}
